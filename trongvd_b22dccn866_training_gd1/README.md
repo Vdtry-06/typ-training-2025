@@ -4,7 +4,7 @@
 
 ### Week 1
 
-#### [I. Create backend project](\source)
+#### [I. Create backend project](source)
 
 ```
 - Dependencies:
