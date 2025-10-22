@@ -57,6 +57,6 @@
 
 ![alt text](source/images/ERD.png)
 
-[3. Insert Data](Database/insert_data.sql)
+[3. Insert Data](source/database/insert_data.sql)
 
-[4. Query Data](Database/query_data.sql)
+[4. Query Data](source/database/query_data.sql)
