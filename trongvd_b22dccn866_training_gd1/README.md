@@ -60,3 +60,5 @@
 [3. Insert Data](source/database/insert_data.sql)
 
 [4. Query Data](source/database/query_data.sql)
+
+[5. Query Function](source/database/function.sql)
