@@ -41,7 +41,7 @@
 ![alt text](source/images/docker.png)
 
 #### II. Create database: management (QuanLySinhVien)
-[1. Intital Tables](Database/intitial_database.sql)
+[1. Intital Tables](source/database/intitial_database.sql)
 ```
 - Tables:
     1. Khoa
@@ -62,3 +62,5 @@
 [4. Query Data](source/database/query_data.sql)
 
 [5. Query Function](source/database/function.sql)
+
+[6. Query Procerdure](source/database/procerdure.sql)
