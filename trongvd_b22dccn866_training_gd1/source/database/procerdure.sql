@@ -85,4 +85,95 @@ CREATE TABLE XepLoai (
 	FOREIGN KEY (ma_sv) references SinhVien(ma_sv)
 );
 
+/*
+	4. Quy định : ket_qua của sinh viên là ”Đạt‘ nếu diem_tb (chỉ tính các môn đã có điểm) của sinh viên đó lớn hơn hoặc bằng 5 
+	và không quá 2 môn dưới 4 điểm, ngược lại thì kết quả là không đạt Đưa dữ liệu vào bảng xếp loại. Sử dụng function
+	Đối với những sinh viên có ket_qua là ”Đạt‘ thì hocLuc được xếp loại như sau:
 
+	 diem_tb >= 8 thì hoc_luc là ”Giỏi” 7 < = diem_tb < 8 thì hoc_luc là ”Khá” Còn lại là ”Trung bình”  
+*/
+
+CREATE OR REPLACE FUNCTION DIEM_TB(
+    p_ma_sv VARCHAR(10)
+)
+RETURNS FLOAT
+LANGUAGE plpgsql
+AS $$
+DECLARE 
+    diem_tb FLOAT;
+BEGIN
+    SELECT AVG(list.diem) INTO diem_tb FROM (
+        SELECT DISTINCT ON (kq.ma_mon_hoc)
+            kq.diem
+        FROM KetQua kq
+        WHERE kq.ma_sv = p_ma_sv
+        ORDER BY kq.ma_mon_hoc, kq.lan_thi DESC
+    ) AS list;
+
+    RETURN diem_tb;
+END;
+$$;
+
+SELECT DIEM_TB('0212003');
+
+CREATE OR REPLACE FUNCTION KET_QUA_SV(
+	p_ma_sv VARCHAR(10)
+)
+RETURNS VARCHAR(10)
+LANGUAGE plpgsql
+AS $$
+DECLARE 
+	cnt INT;
+	diem_tb FLOAT;
+	ket_qua VARCHAR(10);
+BEGIN
+	SELECT DIEM_TB(p_ma_sv) INTO diem_tb;
+	
+	SELECT COUNT(*) INTO cnt FROM (
+		SELECT DISTINCT ON (ma_mon_hoc) diem FROM KetQua kq
+		WHERE kq.ma_sv = p_ma_sv
+		ORDER BY ma_mon_hoc, lan_thi DESC
+	) AS ds
+	WHERE ds.diem < 4;
+	
+	IF diem_tb IS NULL THEN
+		ket_qua := 'Chưa thi';
+	ELSEIF diem_tb >= 5 AND cnt <= 2 THEN 
+		ket_qua := 'Đạt';
+	ELSE
+		ket_qua := 'Trượt';
+	END IF;
+
+	RETURN ket_qua;
+END;
+$$;
+
+SELECT KET_QUA_SV('0212005');
+
+CREATE OR REPLACE FUNCTION NANG_LUC_SV(
+	p_ma_sv VARCHAR(10)
+)
+RETURNS VARCHAR(10)
+LANGUAGE plpgsql
+AS $$
+DECLARE 
+	diem_tb FLOAT;
+	ket_qua VARCHAR(10);
+BEGIN
+	SELECT DIEM_TB(p_ma_sv) INTO diem_tb;
+
+	IF diem_tb >= 8 THEN ket_qua := 'Giỏi';
+	ELSEIF diem_tb >= 7 THEN ket_qua := 'Khá';
+	ELSE ket_qua := 'Trung bình';
+	END IF;
+	
+	RETURN ket_qua;
+END;
+$$;
+
+SELECT NANG_LUC_SV('0212004');
+
+INSERT INTO XepLoai(ma_sv, diem_tb, ket_qua, hoc_luc)
+SELECT ma_sv, DIEM_TB(ma_sv), KET_QUA_SV(ma_sv), NANG_LUC_SV(ma_sv) FROM SinhVien;
+
+SELECT * FROM XepLoai;
