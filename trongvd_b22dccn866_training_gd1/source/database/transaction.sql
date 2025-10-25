@@ -66,7 +66,7 @@ DECLARE
     v_ma_sv VARCHAR(10) := '0212003';
     v_ma_mon_hoc VARCHAR(10) := 'THCS02';
     v_lan_thi INT := 3;
-    v_diem FLOAT := 9;
+    v_diem FLOAT := 9.5;
 BEGIN
     INSERT INTO KetQua(ma_sv, ma_mon_hoc, lan_thi, diem)
     VALUES (v_ma_sv, v_ma_mon_hoc, v_lan_thi, v_diem);
