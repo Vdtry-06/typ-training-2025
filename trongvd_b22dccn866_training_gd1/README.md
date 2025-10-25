@@ -40,7 +40,7 @@
 ```
 ![alt text](source/images/docker.png)
 
-#### II. Create database: management (QuanLySinhVien)
+#### [II. Create database: management (QuanLySinhVien)](source/database)
 [1. Intital Tables](source/database/intitial_database.sql)
 ```
 - Tables:
@@ -152,4 +152,32 @@ Transaction trong SQL là một nhóm các thao tác SQL được thực thi nh�
         RAISE NOTICE 'Lỗi khi thực hiện Transaction: %', SQLERRM;
     END;
     $$;
+```
+
+[9. Grant - Revoke](source/database/grant_revoke.sql)
+```
+GRANT : cấp quyền/vai trò cho 1 người dùng thực hiện các thao tác nhất định trên CSDL, bảng, cột, hay view 
+Syntax:
+    GRANT Permission [, permission2, ...]
+    ON Object
+    TO User [, user2, ...];
+```
+```
+Revoke : thu hồi quyền mà trước đó đã được cấp bằng GRANT
+Syntax:
+    REVOKE Permission [, permission2, ...]
+    ON Object
+    FROM User [, user2, ...];
+```
+
+```
+User login: (when have account)
+    + Registry Server:
+        Enter name server : User Server
+        Host name : postgres_db
+        port : 5432
+        name db : management
+        username : [username]
+        password : [password]
+    + Query with granted permission
 ```
