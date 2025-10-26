@@ -182,7 +182,7 @@ User login: (when have account)
     + Query with granted permission
 ```
 
-### [10. OOP](https://docs.google.com/document/d/1Sbtn1SWsS0AqPhbzMeRWOyVLrqoHfKNF7y4nZxsD9_Y/edit?tab=t.0#heading=h.d97h4lvay1o4)
+[10. OOP](https://docs.google.com/document/d/1Sbtn1SWsS0AqPhbzMeRWOyVLrqoHfKNF7y4nZxsD9_Y/edit?tab=t.0#heading=h.d97h4lvay1o4)
 ```
 4 Tính chất OOP:
     + Đóng gói
@@ -190,7 +190,7 @@ User login: (when have account)
     + Đa hình
     + Trừu tượng
 ```
-#### [11. DI, IOC](https://viblo.asia/p/springgiai-thich-dependency-injection-di-va-ioc-bang-ngoc-trinh-naQZRW3Alvx)
+[11. DI, IOC](https://viblo.asia/p/springgiai-thich-dependency-injection-di-va-ioc-bang-ngoc-trinh-naQZRW3Alvx)
 ```
 DI: là việc các Object phụ thuộc vào các abstract Class chứ không
 phụ thuộc vào cấp thấp
