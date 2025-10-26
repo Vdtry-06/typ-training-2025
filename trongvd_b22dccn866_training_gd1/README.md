@@ -182,19 +182,42 @@ User login: (when have account)
     + Query with granted permission
 ```
 
-#### [III. Frontend](frontend)
-### [1. part1_basic.html](frontend/ui/part1_basic.html)
+### [10. OOP](https://docs.google.com/document/d/1Sbtn1SWsS0AqPhbzMeRWOyVLrqoHfKNF7y4nZxsD9_Y/edit?tab=t.0#heading=h.d97h4lvay1o4)
+```
+4 Tính chất OOP:
+    + Đóng gói
+    + Kế thừa
+    + Đa hình
+    + Trừu tượng
+```
+#### [11. DI, IOC](https://viblo.asia/p/springgiai-thich-dependency-injection-di-va-ioc-bang-ngoc-trinh-naQZRW3Alvx)
+```
+DI: là việc các Object phụ thuộc vào các abstract Class chứ không
+phụ thuộc vào cấp thấp
+3 kiểu tạo DI:
+    + constructor
+    + setter
+    + Interface()
+=> Inject Dependency: giả sử class có hàng chục cái dependency 
+và phải tự tay inject từng cái => khó code 
+=> Inversion Of Control: gom các dependency này vào cái kho và giao cho 
+1 (framework) quản lý. thì framework này tự tìm trong kho để inject vào đối tượng
+=> dễ dàng hơn
+```
+
+### [III. Frontend](frontend)
+#### [1. part1_basic.html](frontend/ui/part1_basic.html)
 
 ![alt text](frontend/images/part1.png)
 
-### [2. part2_tag.html](frontend/ui/part2_tags.html)
+#### [2. part2_tag.html](frontend/ui/part2_tags.html)
 
 ![alt text](frontend/images/part2.png)
 
-### [3. part3_semantic.html](frontend/ui/part3_semantic.html)
+#### [3. part3_semantic.html](frontend/ui/part3_semantic.html)
 
 ![alt text](frontend/images/part3.png)
 
-### [4. practice : part4_profile.html](frontend/ui/part4_profile.html)
+#### [4. practice : part4_profile.html](frontend/ui/part4_profile.html)
 
 ![alt text](frontend/images/part4.png)
