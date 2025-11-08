@@ -10,7 +10,7 @@
 ![System Diagram](structure/system-structure.png)
 
 - Click https://www.icewolfsoft.com/fossflow/
-- Then upload file [Judge-Online Structure](structure/judge-online-2025-11-01.json)
+<!-- - Then upload file [Judge-Online Structure](structure/judge-online-2025-11-01.json) -->
 
 ## CÔNG NGHỆ SỬ DỤNG
 
@@ -23,19 +23,8 @@
 | Deploy | Docker & Docker Compose | Build Service |
 | Store Cache & Queue|Redis, RabbitMQ|Cache và hàng đợi|
 | Database | MongoDB (3 instance tách biệt users, problems, submissions) | Lưu trữ dữ liệu |
-| Reverse proxy / API aggregation|Api-gateway|trung gian|
+| proxy / load balancer|nginx|N/A|
 
-
-### 2. Hạ tầng
-
-| Thành phần|Công nghệ|Phiên bản|Mục đích|
-|-----------|---------|---------|--------|
-| Redis|redis:7-alpine|7.x|Cache dữ liệu, lưu trạng thái, rate limit|
-|RabbitMQ|rabbitmq:3-management-alpine|3.x|Hàng đợi xử lý bài nộp (asynchronous jobs)|
-|MongoDB|mongo:6|6.x|CSDL chính (chia theo domain: users, problems, submissions)|
-|Mongo Express|mongo-express:latest|Latest|Giao diện quản trị MongoDB|
-|Docker Compose|version: "3.8"|Latest|Quản lý hạ tầng container|
----
 
 ### 3. Các Microservices chính
 
@@ -45,18 +34,7 @@
 |User Service|Node.js (v18+)|express, bcryptjs, jsonwebtoken, mongodb, ioredis, dotenv|Quản lý người dùng, xác thực JWT|
 |Problem Service|Node.js (v18+)|express, mongodb, ioredis|Quản lý bài tập, dữ liệu bài toán|
 |Submission Service|Node.js (v18+)|express, amqplib, mongodb, axios, ioredis|Quản lý bài nộp, tương tác với Judge Worker qua RabbitMQ|
-|Judge Worker|Node.js (v18+)|axios, amqplib, ioredis, vm2|Thực thi code của người dùng trong môi trường an toàn (sandbox)|
-
-### 4. Công nghệ & Công cụ phát triển
-
-| Công cụ | Công nghệ | Ghi chú |
-|---------|-----------|---------|
-|Node.js|≥ 18.x|Chạy toàn bộ backend và worker|
-|npm / yarn|npm ≥ 9.x|Quản lý gói Node.js|
-|nodemon|^3.0.1|Tự động reload khi code thay đổi (môi trường dev)|
-|React Scripts|5.0.1|Build và start frontend|
-|Docker & Docker Compose|latest|Chạy và quản lý container|
-|VM2|^3.9.19|Sandbox để chạy code người dùng an toàn|
+|Judge Worker|Java 21+| springboot, amqplib, ioredis|N/A|
 
 ### 5. Bài toán giải quyết
 #### 5.1. Load Shedding (Giảm tải động)
@@ -146,3 +124,11 @@ Công nghệ hỗ trợ:
 |Distributed Lock|Ngăn race condition trong môi trường nhiều instance|Service level|Judge Worker, Submission Service|Redis (SETNX), Redlock|
 |Caching| Giảm truy vấn DB, tăng tốc phản hồi|Service level|User, Problem|Redis, ioredis|
 |Rate Limiting|Ngăn spam, DDoS, abuse API|Gateway/API|API Gateway, User Service|express-rate-limit, Redis|
+
+### 6. Doccument
+##### [6.1. User-service](source/server/user-service/README.md)
+##### 6.2. Problem-service
+##### 6.3. Submission-service
+##### 6.4. Judge-worker
+##### 6.5. Api-gateway
+ 

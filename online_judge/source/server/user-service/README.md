@@ -14,7 +14,7 @@
 
 > 3. Khi chạy song song thì redis có cơ chế **atomic counter** <nghĩa là tăng giá trị key lên 1 đơn vị 1 cách toàn vẹn> ta có thể chia ra thành các batch cho các container mà không cần lock thủ công để đảm bảo không bị trùng lặp và thỏa mãn chạy song song.
 
-> 4. Ta kết hợp scale các container phù hợp và sử dụng các cơ chế của redis **distribute lock** và **atomic counter** và **redis TTL** phân tán các task để tối ưu tốc độ lưu trữ dữ liệu vào db và cải thiện CPU.
+> 4. Ta kết hợp scale các container phù hợp và sử dụng các cơ chế của redis **distribute lock** init và **atomic counter** và **redis TTL** phân tán các task để tối ưu tốc độ lưu trữ dữ liệu vào db và cải thiện CPU.
 
 
 ![alt text](../../../structure/user-redis.png)
