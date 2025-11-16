@@ -319,3 +319,65 @@ Mới cấu hình để kết nối các service với nhau
 chưa tối ưu
 ```
  
+
+## Sandbox
+
+```
+Sandbox là 1 môi trường chạy mã nguồn bị cô lập 
+Trong sandbox chương trình chỉ được phép:
+1. Chạy trong giới hạn tài nguyên CPU, RAM, Time,...
+2. Không được truy cập FileSystem, Internet
+3. Không được truy cập bộ nhớ máy thật
+4. Không thể gây crash hay chiếm quyền hệ thống
+```
+
+```
+Tại sao hệ thống chấm bài Online judge phải dùng Sandbox ?
+1. Người dùng có thể gửi mã độc
+2. Người dùng có thể gửi code vô hạn, gây infinite loop
+3. Người dùng có thể cố tình đọc file system, tấn công server, đánh cắp dữ liệu
+
+Giải pháp của sanbox:
+1. Security:
+    - chặn truy cập: filesystem, network, process system
+    => ngăn hacker gửi code phá server
+2. Resource limiting
+    - Sandbox áp CPU, RAM, Time limiter
+    => Nếu vượt quá => program bị kill ngay (TLE, MLE, RE)
+3. Tạo môi trường giống nhau cho mọi bài nộp
+    - Không ai được ưu tiên hay gian lận tài nguyên
+4. Ngăn crash System
+    - Nếu crash trong sandbox thì system vẫn an toàn
+```
+
+```
+Cách hoạt động của Sandbox:
+1. Khi nhấn submit: => system complier code
+2. Create 1 sandbox: bằng container
+3. Copy input test vào sandbox
+4. Run code trong giới hạn tài nguyên
+5. Thu output => so sánh với đáp án
+6. Xóa sandbox => không còn dấu vết gì
+```
+
+```
+Sandbox được xây dựng như thế nào ?
+1. Docker
+2. Chạy code trong container - seccomp
+3. Chặn các system call nguy hiểm (open, exec, socket,...) - cgroups
+4. Giới hạn CPU, RAM, IO - chroot
+Biến thư mục chạy thành root directory mới => Không truy cập được ra ngoài
+```
+
+```
+Ví dụ codeforces dùng:
+1. isolate (sandbox của olympic IOI)
+2. seccomp
+3. cgroups
+LeetCode / HackerRank sử dụng container công nghệ tương tự Docker
+```
+
+### Nguồn tham khảo
+1. https://github.com/ioi/isolate
+2. https://docs.docker.com/engine/security/
+3. https://codeforces.com/blog/entry/79
